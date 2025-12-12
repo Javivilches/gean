@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GEAN Clinic · Próxima apertura en Andújar</title>
+  <meta name="description" content="GEAN Clinic. Clínica médico estética en Andújar. Próxima apertura. Medicina general, pediatría, reconocimientos y medicina estética." />
+
+  <style>
+    :root{
+      --bg:#FBFBF7;
+      --bg2:#FFFFFF;
+      --text:#161616;
+      --muted:rgba(22,22,22,.64);
+
+      --brand:#1AA6A4;
+      --brand2:#48B9B7;
+      --brandDark:#0E7E7C;
+      --brandSoft:#E7F6F5;
+      --brandSoft2:#F1FBFB;
+
+      --card:#FFFFFF;
+      --border:rgba(22,22,22,.12);
+      --shadow:0 16px 40px rgba(15,35,35,.10);
+      --r:18px;
+      --r2:26px;
+      --max:1160px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:linear-gradient(180deg,var(--bg),var(--bg2));
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--max);margin:0 auto;padding:0 20px}
+    .section{padding:86px 0}
+    .section-tight{padding:64px 0}
+    h1,h2,h3{margin:0 0 12px;letter-spacing:-.2px}
+    p{margin:0 0 14px;color:var(--muted);line-height:1.6}
+    .muted{color:var(--muted)}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:13px 16px;border-radius:14px;border:1px solid var(--border);
+      background:#fff;color:var(--text);font-weight:750;transition:.18s ease;
+      cursor:pointer;user-select:none;
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(15,35,35,.10)}
+    .btn-primary{
+      border:0;color:#fff;
+      background:linear-gradient(135deg,var(--brandDark),var(--brand));
+      box-shadow:0 18px 40px rgba(26,166,164,.18);
+    }
+    .btn-primary:hover{filter:saturate(1.05)}
+    .btn-soft{
+      border:1px solid rgba(26,166,164,.28);
+      background:var(--brandSoft);
+      color:var(--brandDark);
+      font-weight:800;
+    }
+    .btn-small{padding:10px 12px;border-radius:12px;font-weight:800}
+
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:12px;font-weight:800;color:var(--brandDark);
+      padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(26,166,164,.22);
+      background:var(--brandSoft);
+      margin-bottom:10px;
+    }
+    .dot{width:8px;height:8px;border-radius:999px;background:var(--brand)}
+
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(22,22,22,.14),transparent);
+      margin:18px 0;
+    }
+
+    /* NAV */
+    .nav-wrap{
+      position:sticky;top:0;z-index:50;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(22,22,22,.10);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:240px}
+    .logo-img{height:42px;width:auto}
+    .brand-title{line-height:1.15}
+    .brand-title b{display:block;letter-spacing:.28em;font-weight:900}
+    .brand-title span{display:block;font-size:12px;color:rgba(22,22,22,.62);font-weight:700}
+
+    .nav-links{display:flex;gap:10px;align-items:center}
+    .nav-links>a,.dropdown>button{
+      padding:10px 12px;border-radius:12px;
+      color:rgba(22,22,22,.88);
+      font-weight:850;font-size:14px;transition:.15s ease;
+      border:1px solid transparent;background:transparent;cursor:pointer;
+      display:flex;align-items:center;gap:8px;
+    }
+    .nav-links>a:hover,.dropdown>button:hover{
+      background:var(--brandSoft2);
+      border-color:rgba(26,166,164,.18);
+    }
+    .nav-cta{display:flex;gap:10px;align-items:center}
+    .burger{display:none}
+
+    .dropdown{position:relative}
+    .menu{
+      position:absolute;top:50px;left:0;width:310px;
+      background:#fff;border:1px solid rgba(22,22,22,.12);
+      border-radius:16px;box-shadow:var(--shadow);
+      padding:10px;display:none;
+    }
+    .menu a{
+      display:flex;justify-content:space-between;gap:10px;
+      padding:10px 10px;border-radius:12px;
+      font-weight:850;color:rgba(22,22,22,.88);
+    }
+    .menu a small{color:rgba(22,22,22,.55);font-weight:750}
+    .menu a:hover{background:var(--brandSoft2)}
+    .dropdown.open .menu{display:block}
+
+    .mobile{
+      display:none;border-top:1px solid rgba(22,22,22,.10);
+      padding:10px 0 14px;
+    }
+    .mobile a,.mobile button{
+      width:100%;text-align:left;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:12px 12px;border-radius:14px;
+      border:1px solid rgba(22,22,22,.10);
+      background:#fff;color:rgba(22,22,22,.92);
+      font-weight:850;margin:8px 0 0;cursor:pointer;
+    }
+    .mobile .sub{margin-top:8px;padding-left:10px;display:none}
+    .mobile .sub a{background:var(--brandSoft2)}
+    .mobile .sub.open{display:block}
+
+    /* HERO */
+    .hero{padding:68px 0 34px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .hero-card{
+      border-radius:var(--r2);
+      border:1px solid rgba(22,22,22,.12);
+      background:
+        radial-gradient(900px 480px at 10% 0%, rgba(26,166,164,.10), transparent 58%),
+        radial-gradient(900px 480px at 90% 0%, rgba(72,185,183,.08), transparent 58%),
+        #fff;
+      box-shadow:var(--shadow);
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+      text-align:center;
+    }
+
+    .kicker{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(26,166,164,.20);
+      background:var(--brandSoft);
+      color:rgba(14,126,124,.95);
+      font-size:13px;font-weight:850;
+      justify-content:center;
+    }
+
+    .hero h1{
+      font-size:clamp(34px,4.6vw,58px);
+      letter-spacing:-1px;line-height:1.02;
+      margin:12px 0 10px;
+    }
+    .hero h1 .accent{
+      background:linear-gradient(135deg,var(--brandDark),var(--brand));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .hero .lead{
+      font-size:clamp(16px,1.35vw,18px);
+      color:rgba(22,22,22,.70);
+      max-width:60ch;
+      margin:0 auto;
+    }
+    .hero-actions{
+      display:flex;gap:12px;flex-wrap:wrap;
+      margin-top:18px;
+      justify-content:center;
+    }
+
+    .authority{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      text-align:left;
+    }
+    .authority .mini{
+      border:1px solid rgba(22,22,22,.10);
+      background:var(--brandSoft2);
+      border-radius:16px;
+      padding:12px;
+      display:flex;flex-direction:column;gap:6px;
+    }
+    .authority .mini b{font-size:13px}
+    .authority .mini span{font-size:12px;color:rgba(22,22,22,.62);line-height:1.35}
+
+    /* ✅ HERO VISUAL: solo logo (SIN URL, SIN AFTER) */
+    .hero-visual{
+      border-radius:var(--r2);
+      border:1px solid rgba(22,22,22,.12);
+      background:var(--brandSoft2);
+      min-height:420px;
+      box-shadow:var(--shadow);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-visual::after{display:none !important;}
+
+    .hero-logo{
+      background:#fff;
+      border:1px solid rgba(22,22,22,.10);
+      border-radius:22px;
+      padding:24px;
+      max-width:520px;
+      width:100%;
+      box-shadow:0 18px 40px rgba(15,35,35,.08);
+    }
+    .hero-logo img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    /* Section head */
+    .section-head{
+      display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
+      margin-bottom:18px;
+    }
+    .section-head h2{font-size:clamp(24px,2.6vw,34px);letter-spacing:-.5px}
+    .section-head p{max-width:72ch}
+
+    /* Cards */
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .t-card{
+      background:#fff;border:1px solid rgba(22,22,22,.12);
+      border-radius:18px;overflow:hidden;box-shadow:var(--shadow);
+    }
+    .t-img{
+      height:160px;
+      background:
+        linear-gradient(135deg, rgba(26,166,164,.16), rgba(72,185,183,.08)),
+        url("https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;
+    }
+    .t-img.s2{background:
+      linear-gradient(135deg, rgba(26,166,164,.16), rgba(72,185,183,.08)),
+      url("https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;}
+    .t-img.s3{background:
+      linear-gradient(135deg, rgba(26,166,164,.16), rgba(72,185,183,.08)),
+      url("https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;}
+    .t-img.s4{background:
+      linear-gradient(135deg, rgba(26,166,164,.16), rgba(72,185,183,.08)),
+      url("https://images.unsplash.com/photo-1559757175-5700dde67548?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;}
+    .t-img.s5{background:
+      linear-gradient(135deg, rgba(26,166,164,.16), rgba(72,185,183,.08)),
+      url("https://images.unsplash.com/photo-1582719478185-2bbf7bcd26aa?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;}
+    .t-img.s6{background:
+      linear-gradient(135deg, rgba(26,166,164,.16), rgba(72,185,183,.08)),
+      url("https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;}
+
+    .t-body{padding:16px}
+    .t-body h3{font-size:17px;margin-bottom:6px}
+    .t-body p{font-size:13.6px;margin-bottom:10px}
+    .link{
+      display:inline-flex;align-items:center;gap:8px;
+      font-weight:900;color:var(--brandDark);
+    }
+    .link:hover{text-decoration:underline;text-underline-offset:3px}
+
+    .category{
+      margin-top:22px;
+      display:flex;justify-content:space-between;align-items:flex-end;gap:12px;
+    }
+    .category h3{margin:0;font-size:18px}
+    .category p{margin:0;max-width:72ch}
+
+    /* Contorno */
+    .split{
+      display:grid;
+      grid-template-columns:.92fr 1.08fr;
+      gap:18px;
+      align-items:stretch;
+      margin-top:18px;
+    }
+    .panel{
+      border-radius:var(--r2);
+      border:1px solid rgba(22,22,22,.12);
+      background:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .panel .cover{
+      height:240px;
+      background:
+        linear-gradient(135deg, rgba(26,166,164,.16), rgba(72,185,183,.06)),
+        url("https://images.unsplash.com/photo-1580281658628-8358c0df2c93?auto=format&fit=crop&w=1400&q=80") center/cover no-repeat;
+      position:relative;
+    }
+    .panel .cover::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.78));
+    }
+    .panel .content{padding:18px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+    .chip{
+      padding:8px 10px;border-radius:999px;
+      border:1px solid rgba(26,166,164,.22);
+      background:var(--brandSoft);
+      color:var(--brandDark);
+      font-size:12px;
+      font-weight:850;
+    }
+
+    /* Stats */
+    .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}
+    .stat{
+      padding:18px;border-radius:var(--r);
+      border:1px solid rgba(22,22,22,.12);
+      background:#fff;box-shadow:var(--shadow);
+    }
+    .stat b{font-size:13px;color:rgba(22,22,22,.78);font-weight:900}
+    .stat .num{font-size:34px;font-weight:950;letter-spacing:-.8px;margin-top:6px;color:var(--brandDark)}
+    .stat small{color:rgba(22,22,22,.58);font-weight:750}
+
+    /* Team */
+    .team{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+    .person{
+      display:flex;gap:14px;align-items:center;
+      padding:16px;border-radius:var(--r);
+      border:1px solid rgba(22,22,22,.12);
+      background:#fff;box-shadow:var(--shadow);
+    }
+    .avatar{
+      width:64px;height:64px;border-radius:18px;
+      background:linear-gradient(135deg,var(--brandSoft),var(--brandSoft2));
+      border:1px solid rgba(26,166,164,.20);
+      display:grid;place-items:center;
+      font-weight:950;color:var(--brandDark);
+    }
+    .person b{display:block;margin-bottom:4px;font-weight:950}
+    .person span{display:block;font-size:13px;color:rgba(22,22,22,.62);font-weight:750}
+
+    /* Blog */
+    .blog{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;margin-top:18px}
+    .blog .box{
+      padding:18px;border-radius:var(--r2);
+      border:1px solid rgba(22,22,22,.12);
+      background:#fff;box-shadow:var(--shadow);
+    }
+    .blog .thumb{
+      border-radius:var(--r2);
+      border:1px solid rgba(22,22,22,.12);
+      background:
+        linear-gradient(135deg, rgba(26,166,164,.14), rgba(72,185,183,.06)),
+        url("https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1400&q=80") center/cover no-repeat;
+      min-height:280px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .blog .thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.80))}
+    .blog .thumb .badge{
+      position:absolute;left:16px;bottom:16px;
+      padding:10px 12px;border-radius:14px;
+      border:1px solid rgba(22,22,22,.12);
+      background:rgba(255,255,255,.90);
+      backdrop-filter:blur(10px);
+      color:rgba(22,22,22,.88);
+      font-weight:900;font-size:13px;max-width:34ch;
+      box-shadow:var(--shadow);
+    }
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+    .g{
+      height:140px;border-radius:18px;border:1px solid rgba(22,22,22,.12);
+      background:#fff;overflow:hidden;box-shadow:var(--shadow);position:relative;
+    }
+    .g::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg, rgba(26,166,164,.10), rgba(72,185,183,.04))}
+    .g.i1{background:url("https://images.unsplash.com/photo-1580281658628-8358c0df2c93?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat}
+    .g.i2{background:url("https://images.unsplash.com/photo-1579684453423-f84349ef60b0?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat}
+    .g.i3{background:url("https://images.unsplash.com/photo-1582719478185-2bbf7bcd26aa?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat}
+    .g.i4{background:url("https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat}
+    .g.i5{background:url("https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat}
+    .g.i6{background:url("https://images.unsplash.com/photo-1559757175-5700dde67548?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat}
+    .g.i7{background:url("https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat}
+    .g.i8{background:url("https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat}
+
+    /* Contact */
+    .contact{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+    label{display:block;font-weight:900;font-size:13px;margin-bottom:8px;color:rgba(22,22,22,.86)}
+    input,textarea{
+      width:100%;padding:12px 12px;border-radius:14px;
+      border:1px solid rgba(22,22,22,.14);
+      background:#fff;color:rgba(22,22,22,.92);outline:none;
+    }
+    textarea{min-height:120px;resize:vertical}
+    input:focus,textarea:focus{
+      border-color:rgba(26,166,164,.55);
+      box-shadow:0 0 0 4px rgba(26,166,164,.14);
+    }
+    .contact .box{
+      padding:18px;border-radius:var(--r2);
+      border:1px solid rgba(22,22,22,.12);
+      background:#fff;box-shadow:var(--shadow);
+    }
+    .info{display:flex;flex-direction:column;gap:10px}
+    .info-row{
+      display:flex;gap:10px;align-items:flex-start;
+      padding:12px;border-radius:16px;
+      border:1px solid rgba(22,22,22,.12);
+      background:var(--brandSoft2);
+    }
+    .ico{
+      width:34px;height:34px;border-radius:14px;
+      background:var(--brandSoft);
+      border:1px solid rgba(26,166,164,.20);
+      display:grid;place-items:center;
+      font-weight:950;color:var(--brandDark);
+    }
+    .info-row b{display:block;margin-bottom:2px;font-weight:950}
+    .info-row span{display:block;color:rgba(22,22,22,.66);font-size:13px;line-height:1.35;font-weight:750}
+
+    .cta{
+      border-radius:var(--r2);
+      border:1px solid rgba(26,166,164,.22);
+      background:
+        radial-gradient(900px 500px at 10% 0%, rgba(26,166,164,.12), transparent 58%),
+        radial-gradient(900px 500px at 90% 0%, rgba(72,185,183,.10), transparent 58%),
+        #fff;
+      box-shadow:var(--shadow);
+      padding:22px;
+      display:flex;justify-content:space-between;align-items:center;
+      gap:16px;flex-wrap:wrap;
+    }
+
+    footer{padding:34px 0 46px}
+    .footer-grid{display:grid;grid-template-columns:1.2fr .8fr 1fr;gap:16px;margin-top:16px}
+    .footer-card{
+      border-radius:18px;border:1px solid rgba(22,22,22,.12);
+      background:#fff;padding:16px;box-shadow:var(--shadow);
+    }
+    .footer-card h4{margin:0 0 10px;font-size:14px;font-weight:950}
+    .footer-card a{display:block;padding:8px 0;color:rgba(22,22,22,.78);font-weight:850}
+    .footer-card a:hover{text-decoration:underline;text-underline-offset:3px}
+    .fine{
+      margin-top:14px;display:flex;justify-content:space-between;
+      flex-wrap:wrap;gap:10px;color:rgba(22,22,22,.56);
+      font-size:12px;font-weight:750;
+    }
+    .ng{
+      display:flex;gap:12px;align-items:center;
+      padding:12px;border-radius:18px;
+      border:1px solid rgba(26,166,164,.22);
+      background:var(--brandSoft2);
+      margin-top:12px;
+    }
+    .ng b{display:block;font-size:13px;color:rgba(22,22,22,.84)}
+    .ng span{display:block;font-size:12px;color:rgba(22,22,22,.60);line-height:1.35}
+    .ng .badge-ng{
+      width:44px;height:44px;border-radius:16px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--brandDark),var(--brand));
+      color:#fff;font-weight:950;
+      box-shadow:0 14px 26px rgba(26,166,164,.18);
+    }
+
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr}
+      .hero-visual{min-height:320px}
+      .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .split{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr}
+      .team{grid-template-columns:1fr}
+      .blog{grid-template-columns:1fr}
+      .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .contact{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+      .nav-links{display:none}
+      .burger{display:inline-flex}
+      .mobile.open{display:block}
+      .authority{grid-template-columns:1fr}
+      .brand-title b{letter-spacing:.18em}
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="nav-wrap">
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#inicio" aria-label="Ir a inicio">
+          <img class="logo-img" src="gean.jpg?v=1" alt="GEAN Clinic" />
+          <div class="brand-title">
+            <b>GEAN</b>
+            <span>Clinic · Andújar</span>
+          </div>
+        </a>
+
+        <div class="nav-links" aria-label="Menú principal">
+          <a href="#inicio">Inicio</a>
+
+          <div class="dropdown" id="dd">
+            <button type="button" aria-haspopup="true" aria-expanded="false" id="ddBtn">
+              Tratamientos <span style="opacity:.7">▾</span>
+            </button>
+            <div class="menu" role="menu" aria-label="Submenú tratamientos">
+              <a href="#tratamientos-estetica" role="menuitem">Medicina estética <small>Facial y rejuvenecimiento</small></a>
+              <a href="#tratamientos-general" role="menuitem">Medicina general <small>Familiar y pediátrica</small></a>
+              <a href="#contorno-cirugia" role="menuitem">Contorno / cirugía <small>Procedimientos</small></a>
+            </div>
+          </div>
+
+          <a href="#equipo">Equipo</a>
+          <a href="#contacto">Contacto</a>
+          <a href="#galeria">Galería</a>
+        </div>
+
+        <div class="nav-cta">
+          <a class="btn btn-small btn-soft" href="tel:+34663608898">📞 663 608 898</a>
+          <a class="btn btn-small btn-primary" href="#contacto">Contacta</a>
+          <button class="btn btn-small burger" type="button" id="burger" aria-label="Abrir menú móvil">☰</button>
+        </div>
+      </div>
+
+      <div class="mobile" id="mobile">
+        <a href="#inicio">Inicio</a>
+        <button type="button" id="mTreat">Tratamientos <span>▾</span></button>
+        <div class="sub" id="mSub">
+          <a href="#tratamientos-estetica">Medicina estética</a>
+          <a href="#tratamientos-general">Medicina general</a>
+          <a href="#contorno-cirugia">Contorno / cirugía</a>
+        </div>
+        <a href="#equipo">Equipo</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#galeria">Galería</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero section" id="inicio">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-card">
+          <span class="kicker"><span class="dot"></span> Próxima apertura · Andújar (Jaén)</span>
+
+          <h1><span class="accent">PRÓXIMA APERTURA</span></h1>
+
+          <p class="lead">
+            <b>GEAN</b>, tu clínica médico estética en Andújar.<br/>
+            Autoridad médica, trato humano y acompañamiento real para que tomes decisiones con tranquilidad.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contacto">Contacta con nosotros</a>
+            <a class="btn btn-soft" href="#tratamientos-estetica">Ver tratamientos</a>
+          </div>
+
+          <div class="authority" aria-label="Mensajes de confianza">
+            <div class="mini">
+              <b>Enfoque médico</b>
+              <span>Seguridad, criterio clínico y resultados naturales.</span>
+            </div>
+            <div class="mini">
+              <b>Transparencia</b>
+              <span>Explicaciones claras, expectativas realistas y sin presión.</span>
+            </div>
+            <div class="mini">
+              <b>Acompañamiento</b>
+              <span>Te guiamos antes, durante y después del tratamiento.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ✅ Solo logo -->
+        <div class="hero-visual" aria-label="Logo GEAN Clinic">
+          <div class="hero-logo">
+            <img src="gean.jpg?v=1" alt="GEAN Clinic" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- (El resto igual que tu versión) -->
+  <!-- TRATAMIENTOS -->
+  <section class="section" id="tratamientos">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="pill"><span class="dot"></span> Tratamientos</span>
+          <h2>Todos nuestros servicios</h2>
+          <p>Una clínica pensada para que te sientas seguro/a: seleccionamos tratamientos con criterio médico y te acompañamos con claridad.</p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn btn-small btn-soft" href="#contorno-cirugia">Contorno / cirugía</a>
+          <a class="btn btn-small btn-primary" href="#contacto">Pide información</a>
+        </div>
+      </div>
+
+      <div class="category" id="tratamientos-estetica">
+        <div>
+          <h3>Medicina estética</h3>
+          <p class="muted">Armonización, rejuvenecimiento y cuidado facial con resultados naturales.</p>
+        </div>
+      </div>
+
+      <div class="cards" style="margin-top:14px">
+        <article class="t-card" id="bioestimulacion"><div class="t-img"></div><div class="t-body"><h3>Bioestimulación facial</h3><p>Recupera luminosidad y calidad de piel con un plan progresivo y natural.</p><a class="link" href="#contacto">Ver más &gt;</a></div></article>
+        <article class="t-card" id="neuromoduladores"><div class="t-img s2"></div><div class="t-body"><h3>Neuromoduladores</h3><p>Frente, glabela, bruxismo o full face, con precisión y criterio.</p><a class="link" href="#contacto">Ver más &gt;</a></div></article>
+        <article class="t-card" id="mesoterapia"><div class="t-img s3"></div><div class="t-body"><h3>Mesoterapia facial</h3><p>Hidratación y vitalidad para una piel con mejor tono y textura.</p><a class="link" href="#contacto">Ver más &gt;</a></div></article>
+        <article class="t-card" id="peeling"><div class="t-img s4"></div><div class="t-body"><h3>Peelings faciales</h3><p>Renueva tu piel con un plan adaptado y un acabado uniforme.</p><a class="link" href="#contacto">Ver más &gt;</a></div></article>
+        <article class="t-card" id="acido-hialuronico"><div class="t-img s5"></div><div class="t-body"><h3>Ácido hialurónico</h3><p>Mentón, labios, pómulos o mandíbula: armonía sin perder tu esencia.</p><a class="link" href="#contacto">Ver más &gt;</a></div></article>
+        <article class="t-card" id="hilos-pdo"><div class="t-img s6"></div><div class="t-body"><h3>Hilos de PDO</h3><p>Efecto tensor sutil y progresivo, buscando naturalidad.</p><a class="link" href="#contacto">Ver más &gt;</a></div></article>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="category" id="tratamientos-general">
+        <div>
+          <h3>Medicina general</h3>
+          <p class="muted">Atención familiar, pediatría y reconocimientos con un trato cercano.</p>
+        </div>
+      </div>
+
+      <div class="cards" style="margin-top:14px">
+        <article class="t-card"><div class="t-img s2"></div><div class="t-body"><h3>Medicina familiar general</h3><p>Seguimiento, prevención y asesoramiento médico con calma y claridad.</p><a class="link" href="#contacto">Ver más &gt;</a></div></article>
+        <article class="t-card"><div class="t-img s4"></div><div class="t-body"><h3>Medicina general pediátrica</h3><p>Atención para peques y familias, poniendo el foco en lo importante.</p><a class="link" href="#contacto">Ver más &gt;</a></div></article>
+        <article class="t-card"><div class="t-img s5"></div><div class="t-body"><h3>Reconocimientos médicos</h3><p>Evaluaciones claras y completas, con explicaciones sin tecnicismos.</p><a class="link" href="#contacto">Ver más &gt;</a></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO (lo esencial, igual que tu versión) -->
+  <section class="section" id="contacto">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="pill"><span class="dot"></span> Contacto</span>
+          <h2>Contacta con nosotros</h2>
+          <p>Sin compromiso: cuéntanos qué te interesa y te orientamos con claridad.</p>
+        </div>
+      </div>
+
+      <div class="contact">
+        <div class="box contact box">
+          <form id="form">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+              <div><label for="name">Nombre</label><input id="name" name="name" type="text" placeholder="Tu nombre" required /></div>
+              <div><label for="phone">Teléfono (opcional)</label><input id="phone" name="phone" type="tel" placeholder="Ej. 663 608 898" /></div>
+            </div>
+            <div style="margin-top:12px"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="tuemail@ejemplo.com" required /></div>
+            <div style="margin-top:12px"><label for="msg">Mensaje</label><textarea id="msg" name="msg" placeholder="Cuéntanos qué tratamiento te interesa o qué necesitas..." required></textarea></div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:14px">
+              <button class="btn btn-primary" type="submit">Enviar</button>
+              <a class="btn btn-soft" href="mailto:geanclinica@gmail.com?subject=Consulta%20GEAN%20Clinic">Enviar por email</a>
+              <a class="btn btn-soft" href="https://wa.me/34663608898?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20GEAN%20Clinic.%20%C2%BFPod%C3%A9is%20asesorarme%3F" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+          </form>
+        </div>
+
+        <div class="box info">
+          <div class="info-row"><div class="ico">📍</div><div><b>Dirección</b><span>Montero Moya, 4 · 23740 Andújar (Jaén)</span></div></div>
+          <div class="info-row"><div class="ico">📞</div><div><b>Teléfono</b><span><a href="tel:+34663608898" style="text-decoration:underline; text-underline-offset:3px">663 608 898</a></span></div></div>
+          <div class="info-row"><div class="ico">✉️</div><div><b>Email</b><span><a href="mailto:geanclinica@gmail.com" style="text-decoration:underline; text-underline-offset:3px">geanclinica@gmail.com</a></span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="fine">
+        <span>© <span id="year"></span> GEAN CLINIC. SL · Todos los derechos reservados.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const dd = document.getElementById('dd');
+    const ddBtn = document.getElementById('ddBtn');
+    ddBtn?.addEventListener('click', () => {
+      dd.classList.toggle('open');
+      ddBtn.setAttribute('aria-expanded', dd.classList.contains('open') ? 'true' : 'false');
+    });
+    document.addEventListener('click', (e) => {
+      if (dd && !dd.contains(e.target)) {
+        dd.classList.remove('open');
+        ddBtn?.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    const burger = document.getElementById('burger');
+    const mobile = document.getElementById('mobile');
+    burger?.addEventListener('click', () => mobile.classList.toggle('open'));
+    const mTreat = document.getElementById('mTreat');
+    const mSub = document.getElementById('mSub');
+    mTreat?.addEventListener('click', () => mSub.classList.toggle('open'));
+    [...document.querySelectorAll('.mobile a')].forEach(a => a.addEventListener('click', () => mobile.classList.remove('open')));
+
+    const form = document.getElementById('form');
+    form?.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('msg').value.trim();
+      const subject = encodeURIComponent('Consulta GEAN Clinic');
+      const body = encodeURIComponent(
+        `Nombre: ${name}\nTeléfono: ${phone || '-'}\nEmail: ${email}\n\nMensaje:\n${msg}\n`
+      );
+      window.location.href = `mailto:geanclinica@gmail.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
