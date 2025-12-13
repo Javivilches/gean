@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GEAN CLINIC · Chat</title>
+  <style>
+    :root{
+      --primary:#0F9D94;
+      --primary-weak:#DFF3F1;
+      --ink:#151A1E;
+      --muted:#5B666F;
+      --bg:#FEFEFD;
+      --surface:#FFFFFF;
+      --border:rgba(15,157,148,.20);
+      --shadow:0 14px 40px rgba(17,24,39,.12);
+      --radius:18px;
+    }
+    *{ box-sizing:border-box; }
+    body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:transparent; }
+    .tc-wrap{
+      width: 360px;
+      height: 520px;
+      display:flex;
+      flex-direction:column;
+      border-radius: var(--radius);
+      overflow:hidden;
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: var(--surface);
+    }
+    .tc-head{
+      padding: 12px 14px;
+      background: linear-gradient(135deg, rgba(15,157,148,.14), rgba(15,157,148,.06));
+      border-bottom:1px solid rgba(15,157,148,.18);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .tc-head .title{
+      font-weight: 900;
+      color: var(--ink);
+      font-size: 14px;
+      letter-spacing: -.01em;
+    }
+    .tc-head .sub{
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-top:2px;
+    }
+    .tc-head .left{
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+    }
+    .tc-head .badge{
+      font-size:12px;
+      font-weight:800;
+      color: var(--primary);
+      background: rgba(15,157,148,.12);
+      border:1px solid rgba(15,157,148,.20);
+      padding:6px 10px;
+      border-radius:999px;
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    .tc-body{
+      flex:1;
+      padding: 12px;
+      overflow:auto;
+      background: radial-gradient(1200px 520px at 10% 0%, rgba(15,157,148,.08), transparent 55%), var(--bg);
+    }
+
+    .msg{
+      max-width: 86%;
+      padding: 10px 12px;
+      border-radius: 14px;
+      margin: 8px 0;
+      line-height:1.35;
+      font-size: 14px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .msg.bot{
+      background: #fff;
+      border:1px solid rgba(15,157,148,.16);
+      box-shadow: 0 10px 24px rgba(17,24,39,.06);
+      color: var(--ink);
+      border-top-left-radius: 8px;
+    }
+    .msg.me{
+      margin-left:auto;
+      background: var(--primary);
+      color:#fff;
+      border:1px solid rgba(0,0,0,0);
+      border-top-right-radius: 8px;
+    }
+
+    .tc-foot{
+      padding: 10px;
+      border-top:1px solid rgba(15,157,148,.18);
+      display:flex;
+      gap:8px;
+      background: rgba(255,255,255,.86);
+      backdrop-filter: blur(8px);
+    }
+    .tc-input{
+      flex:1;
+      border:1px solid rgba(15,157,148,.25);
+      background: rgba(255,255,255,.95);
+      border-radius: 999px;
+      padding: 10px 12px;
+      outline:none;
+      font-size: 14px;
+    }
+    .tc-input:focus{
+      border-color: rgba(15,157,148,.45);
+      box-shadow: 0 0 0 4px rgba(15,157,148,.12);
+    }
+    .tc-send{
+      border:none;
+      background: var(--primary);
+      color:#fff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 900;
+      cursor:pointer;
+      user-select:none;
+    }
+    .tc-send:active{ transform: translateY(1px); }
+
+    .typing{
+      display:inline-flex;
+      gap:4px;
+      align-items:center;
+    }
+    .dot{
+      width:6px; height:6px;
+      border-radius: 999px;
+      background: rgba(21,26,30,.35);
+      animation: b 1.2s infinite ease-in-out;
+    }
+    .dot:nth-child(2){ animation-delay: .15s; }
+    .dot:nth-child(3){ animation-delay: .30s; }
+    @keyframes b { 0%,80%,100%{ transform:scale(1); opacity:.45 } 40%{ transform:scale(1.35); opacity:1 } }
+
+    @media (max-width: 420px){
+      .tc-wrap{ width: 100vw; height: 100vh; border-radius:0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="tc-wrap" role="application" aria-label="Chat GEAN CLINIC">
+    <div class="tc-head">
+      <div class="left">
+           </div>
+        </div>
+
+    <div class="tc-body" id="tcBody" aria-live="polite"></div>
+
+    <div class="tc-foot">
+      <input class="tc-input" id="tcInput" placeholder="Escribe tu mensaje..." autocomplete="off" />
+      <button class="tc-send" id="tcSend" type="button">Enviar</button>
+    </div>
+  </div>
+
+  <script>
+    // ✅ Endpoint de tu Worker GEAN
+    const TC_CHAT_ENDPOINT = "https://chatgean.javivilxes.workers.dev/api/chat";
+
+    const bodyEl  = document.getElementById("tcBody");
+    const inputEl = document.getElementById("tcInput");
+    const sendBtn = document.getElementById("tcSend");
+
+    // Historial en el formato que acepta tu worker: [{role, content}]
+    const history = [];
+
+    function addMsg(text, who){
+      const el = document.createElement("div");
+      el.className = "msg " + (who === "me" ? "me" : "bot");
+      el.textContent = text;
+      bodyEl.appendChild(el);
+      bodyEl.scrollTop = bodyEl.scrollHeight;
+      return el;
+    }
+
+    function addTyping(){
+      const el = document.createElement("div");
+      el.className = "msg bot";
+      el.innerHTML = '<span class="typing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>';
+      bodyEl.appendChild(el);
+      bodyEl.scrollTop = bodyEl.scrollHeight;
+      return el;
+    }
+
+    // Saludo inicial
+    addMsg("Hola! Soy el asistente de GEAN CLINIC. En qué puedo ayudarte hoy?", "bot");
+
+    async function send(){
+      const text = (inputEl.value || "").trim();
+      if(!text) return;
+
+      inputEl.value = "";
+      addMsg(text, "me");
+      history.push({ role: "user", content: text });
+
+      const typing = addTyping();
+
+      try{
+        const r = await fetch(TC_CHAT_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text, history })
+        });
+
+        let data = null;
+        try { data = await r.json(); } catch {}
+
+        if(!r.ok){
+          const msg = (data && data.reply) ? data.reply : ("Error HTTP " + r.status);
+          throw new Error(msg);
+        }
+
+        const reply = (data && data.reply) ? String(data.reply) : "Ahora mismo no puedo responder. Prueba en un minuto.";
+        typing.remove();
+        addMsg(reply, "bot");
+        history.push({ role: "assistant", content: reply });
+
+      }catch(e){
+        typing.remove();
+        addMsg("Ahora mismo no puedo responder. Puedes llamarnos o escribir por WhatsApp.", "bot");
+        // (Opcional) consola para depurar
+        console.error("Chat error:", e);
+      }
+    }
+
+    sendBtn.addEventListener("click", send);
+    inputEl.addEventListener("keydown", (e) => {
+      if(e.key === "Enter") send();
+    });
+  </script>
+</body>
+</html>
