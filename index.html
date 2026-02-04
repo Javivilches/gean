@@ -573,18 +573,18 @@
     .doctor-ana .thumb img{ object-position: center 15%; }
 
     /* ===== REVEAL ON SCROLL (suave) ===== */
-    .reveal{
-      opacity: 0;
-      transform: translateY(18px);
-      filter: blur(2px);
-      transition: opacity .65s ease, transform .65s ease, filter .65s ease;
-      will-change: opacity, transform, filter;
-    }
-    .reveal.reveal-visible{
-      opacity: 1;
-      transform: none;
-      filter: none;
-    }
+   .reveal{
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .6s ease, transform .6s ease;
+  will-change: opacity, transform;
+}
+
+.reveal.reveal-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
     @media (prefers-reduced-motion: reduce){
       .reveal{
         opacity: 1 !important;
@@ -1457,3 +1457,4 @@
   </script>
 </body>
 </html>
+
