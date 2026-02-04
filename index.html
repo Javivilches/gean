@@ -573,7 +573,7 @@
     .doctor-ana .thumb img{ object-position: center 15%; }
 
     /* =========================
-       EFECTO "JOSE": reveal + is-visible (móvil incluido)
+       REVEAL (IGUAL QUE JOSÉ)
        ========================= */
     .reveal{
       opacity:0;
@@ -585,15 +585,17 @@
       opacity:1;
       transform: translateY(0);
     }
-
-    /* Variantes opcionales (si quieres usarlas) */
-    .reveal[data-reveal="left"]{ transform: translateX(-18px); }
-    .reveal.is-visible[data-reveal="left"]{ transform: translateX(0); }
-    .reveal[data-reveal="right"]{ transform: translateX(18px); }
-    .reveal.is-visible[data-reveal="right"]{ transform: translateX(0); }
-    .reveal[data-reveal="zoom"]{ transform: scale(.98); }
-    .reveal.is-visible[data-reveal="zoom"]{ transform: scale(1); }
-
+    @media (max-width: 768px){
+      .reveal{
+        opacity:0;
+        transform: translateY(16px);
+        transition: opacity .45s ease, transform .45s ease;
+      }
+      .reveal.is-visible{
+        opacity:1;
+        transform: translateY(0);
+      }
+    }
     @media (prefers-reduced-motion: reduce){
       .reveal{
         opacity: 1 !important;
@@ -667,7 +669,7 @@
   <header class="topbar">
     <div class="container">
       <div class="topbar-inner">
-        <a class="brand" href="#inicio" aria-label="Ir a inicio">
+        <a class="brand reveal" href="#inicio" aria-label="Ir a inicio">
           <img src="gean.jpg" alt="GEAN CLINIC" onerror="this.style.display='none'" />
           <div class="name">
             <strong>GEAN CLINIC</strong>
@@ -676,7 +678,7 @@
         </a>
 
         <!-- Desktop nav -->
-        <nav class="nav" aria-label="Menú principal">
+        <nav class="nav reveal" aria-label="Menú principal">
           <a href="#inicio" class="navlink active">Inicio</a>
 
           <div class="dropdown" id="dd">
@@ -715,7 +717,6 @@
           <a href="#opiniones" class="navlink">Opiniones</a>
           <a href="#galeria" class="navlink">Galería</a>
           <a href="#contacto" class="navlink">Contacto</a>
-          <!-- Ahora abre modal -->
           <a class="btn btn-primary js-open-cita" href="#reserva">Reserva tu cita</a>
         </div>
       </div>
@@ -726,7 +727,7 @@
   <main id="inicio" class="hero">
     <div class="container">
       <div class="hero-grid">
-        <div class="hero-left">
+        <div class="hero-left reveal">
           <span class="chip">Próxima apertura · Andújar</span>
           <h1>GEAN, tu clínica médico estética en Andújar.</h1>
           <p class="lead">
@@ -743,7 +744,7 @@
           </p>
         </div>
 
-        <div class="hero-right">
+        <div class="hero-right reveal">
           <div class="hero-promo" aria-label="Imagen de clínica">
             <div>
               <div class="big">PRÓXIMA<br>APERTURA</div>
@@ -758,10 +759,9 @@
   <!-- BAND -->
   <section id="reserva" class="band section-tight">
     <div class="container">
-      <div class="band-inner">
+      <div class="band-inner reveal">
         <h2>Reserva tu cita</h2>
         <p>Solicita tu cita ahora y da el primer paso para cuidarte con un enfoque médico y personalizado.</p>
-        <!-- Ahora abre modal (y NO baja a contacto) -->
         <a class="btn btn-primary js-open-cita" href="#contacto">Reservar cita</a>
       </div>
     </div>
@@ -770,15 +770,14 @@
   <!-- TRATAMIENTOS -->
   <section id="tratamientos" class="section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2>Todos nuestros tratamientos</h2>
         <p>Tratamientos pensados para resultados naturales, con criterio médico y un trato cercano.</p>
       </div>
 
-      <!-- Medicina estética -->
-      <h2 id="medicina-estetica" class="category-title">Medicina estética</h2>
+      <h2 id="medicina-estetica" class="category-title reveal">Medicina estética</h2>
       <div class="grid cards">
-        <article class="card tcard" id="t-bio">
+        <article class="card tcard reveal" id="t-bio">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80" alt="Bioestimulación facial">
           </div>
@@ -789,7 +788,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="t-neuro">
+        <article class="card tcard reveal" id="t-neuro">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80" alt="Neuromoduladores">
           </div>
@@ -800,7 +799,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="t-meso">
+        <article class="card tcard reveal" id="t-meso">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80" alt="Mesoterapia facial">
           </div>
@@ -811,7 +810,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="t-peel">
+        <article class="card tcard reveal" id="t-peel">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=80" alt="Peelings faciales">
           </div>
@@ -822,7 +821,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="t-ah">
+        <article class="card tcard reveal" id="t-ah">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=1200&q=80" alt="Ácido hialurónico">
           </div>
@@ -833,7 +832,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="t-ojera">
+        <article class="card tcard reveal" id="t-ojera">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=1200&q=80" alt="Tratamiento de la ojera">
           </div>
@@ -844,7 +843,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="t-prp">
+        <article class="card tcard reveal" id="t-prp">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80" alt="Plasma rico en plaquetas">
           </div>
@@ -855,7 +854,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="t-derma">
+        <article class="card tcard reveal" id="t-derma">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1200&q=80" alt="Dermapen">
           </div>
@@ -866,7 +865,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="t-plasma">
+        <article class="card tcard reveal" id="t-plasma">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&fit=crop&w=1200&q=80" alt="Plasmapen">
           </div>
@@ -877,7 +876,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="t-hilos">
+        <article class="card tcard reveal" id="t-hilos">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?auto=format&fit=crop&w=1200&q=80" alt="Hilos de PDO">
           </div>
@@ -889,10 +888,9 @@
         </article>
       </div>
 
-      <!-- Medicina general -->
-      <h2 id="medicina-general" class="category-title">Medicina general</h2>
+      <h2 id="medicina-general" class="category-title reveal">Medicina general</h2>
       <div class="grid cards">
-        <article class="card tcard" id="g-familiar">
+        <article class="card tcard reveal" id="g-familiar">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80" alt="Medicina general familiar">
           </div>
@@ -903,7 +901,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="g-pedia">
+        <article class="card tcard reveal" id="g-pedia">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1579684453423-f84349ef60b0?auto=format&fit=crop&w=1200&q=80" alt="Medicina general pediátrica">
           </div>
@@ -914,7 +912,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="g-recon">
+        <article class="card tcard reveal" id="g-recon">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?auto=format&fit=crop&w=1200&q=80" alt="Reconocimientos médicos">
           </div>
@@ -925,7 +923,7 @@
           </div>
         </article>
 
-        <article class="card tcard" id="g-general">
+        <article class="card tcard reveal" id="g-general">
           <div class="thumb">
             <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1200&q=80" alt="Consulta general">
           </div>
@@ -942,7 +940,7 @@
   <!-- PRECIOS -->
   <section id="precios" class="section soft">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2>Precios</h2>
         <p>Conoce nuestros precios en medicina estética tras una valoración individualizada.</p>
 
@@ -951,7 +949,7 @@
         </button>
       </div>
 
-      <div class="card" id="listaPrecios" style="display:none; padding:22px;" aria-hidden="true">
+      <div class="card reveal" id="listaPrecios" style="display:none; padding:22px;" aria-hidden="true">
         <div class="info-list" style="margin-top:0;">
           <div class="info-item">
             <span class="dot"></span>
@@ -988,13 +986,13 @@
   <!-- EQUIPO -->
   <section id="equipo" class="section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2>Equipo</h2>
         <p>Conoce al equipo de profesionales que cuidará de ti.</p>
       </div>
 
       <div class="grid cards" style="grid-template-columns: repeat(2, 1fr);">
-        <article class="card tcard doctor-ana" style="min-height:auto;">
+        <article class="card tcard doctor-ana reveal" style="min-height:auto;">
           <div class="thumb">
             <img src="doctora.png" alt="Dra. Ana Belén Díaz Caler">
           </div>
@@ -1005,7 +1003,7 @@
           </div>
         </article>
 
-        <article class="card tcard doctor-gabriel" style="min-height:auto;">
+        <article class="card tcard doctor-gabriel reveal" style="min-height:auto;">
           <div class="thumb">
             <img src="especialista.png" alt="Dr. Gabriel Fernández Sampedro">
           </div>
@@ -1022,12 +1020,12 @@
   <!-- OPINIONES -->
   <section id="opiniones" class="section soft">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2>Opiniones de pacientes</h2>
         <p></p>
       </div>
 
-      <div class="carousel-wrap">
+      <div class="carousel-wrap reveal">
         <div class="carousel" aria-roledescription="carrusel">
           <div class="track" id="trackReviews">
             <article class="review"><div class="stars">★★★★★</div><div class="name">Bego Jurado</div><p>Trato muy cercano. Me explicaron todo con calma y me sentí tranquila desde el primer minuto.</p></article>
@@ -1053,12 +1051,12 @@
   <!-- GALERÍA -->
   <section id="galeria" class="section soft">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2>Galería</h2>
         <p></p>
       </div>
 
-      <div class="carousel-wrap">
+      <div class="carousel-wrap reveal">
         <div class="carousel" aria-roledescription="carrusel">
           <div class="track" id="trackGallery">
             <div class="gcard"><img src="fachada.jpg" alt="Fachada GEAN CLINIC"></div>
@@ -1081,13 +1079,13 @@
   <!-- CONTACTO -->
   <section id="contacto" class="section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <h2>Contacto</h2>
         <p></p>
       </div>
 
       <div class="grid contact-grid">
-        <div class="card info-box">
+        <div class="card info-box reveal">
           <h3>GEAN CLINIC, SL</h3>
           <p class="lead">c/ Montero Moya, 4 · 23740 Andújar (Jaén)</p>
 
@@ -1132,7 +1130,7 @@
           </div>
         </div>
 
-        <form class="card form" onsubmit="event.preventDefault(); alert('Formulario de demostración. Luego lo conectamos a un envío real.');">
+        <form class="card form reveal" onsubmit="event.preventDefault(); alert('Formulario de demostración. Luego lo conectamos a un envío real.');">
           <h3>Escríbenos</h3>
 
           <div class="field">
@@ -1167,7 +1165,7 @@
   <footer>
     <div class="container">
       <div class="grid footer-grid">
-        <div class="footer-brand">
+        <div class="footer-brand reveal">
           <img src="gean.jpg" alt="GEAN CLINIC" onerror="this.style.display='none'">
           <p>
             GEAN CLINIC
@@ -1176,7 +1174,7 @@
           </p>
         </div>
 
-        <div class="fcol">
+        <div class="fcol reveal">
           <h4>Clínica</h4>
           <div class="flinks">
             <a href="#inicio">Inicio</a>
@@ -1189,7 +1187,7 @@
           </div>
         </div>
 
-        <div class="fcol">
+        <div class="fcol reveal">
           <h4>Contacto</h4>
           <div class="flinks">
             <a href="#contacto">c/ Montero Moya, 4 · Andújar</a>
@@ -1198,7 +1196,7 @@
           </div>
         </div>
 
-        <div class="fcol">
+        <div class="fcol reveal">
           <h4>Legal</h4>
           <div class="flinks">
             <a href="#contacto" onclick="alert('Pendiente: Accesibilidad')">Accesibilidad</a>
@@ -1351,68 +1349,30 @@
       btnPrecios.textContent = open ? "Ver precios" : "Ocultar precios";
     });
 
-    /* =========================
-       EFECTO "JOSE": same idea (IntersectionObserver + fallback)
-       - Aplica reveal a secciones + tarjetas
-       ========================= */
+    // ==============================
+    // REVEAL (IGUAL QUE JOSÉ)
+    // ==============================
     document.addEventListener("DOMContentLoaded", () => {
-      const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduce) return;
-
-      // Qué animamos (secciones + tarjetas)
-      const targets = Array.from(document.querySelectorAll(
-        ".hero, .band, .section, footer, .tcard, .review, .gcard, .info-box, .form"
-      ));
-
-      // Si está vacío, fuera
-      if(!targets.length) return;
-
-      // Marcamos como reveal
-      targets.forEach(el => el.classList.add("reveal"));
-
-      // Stagger suave para grids (como se nota en la de Jose)
-      document.querySelectorAll(".cards").forEach(grid => {
-        Array.from(grid.children).forEach((el, i) => {
-          el.style.transitionDelay = (i * 70) + "ms";
-        });
-      });
-
-      document.querySelectorAll("#trackReviews > *").forEach((el, i) => {
-        el.style.transitionDelay = (i * 60) + "ms";
-      });
-
-      // Fallback scroll (si IO falla por navegador/iframe)
-      const showByScroll = () => {
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        targets.forEach(el => {
-          if(el.classList.contains("is-visible")) return;
-          const r = el.getBoundingClientRect();
-          if (r.top < vh * 0.88) {
-            requestAnimationFrame(() => el.classList.add("is-visible"));
-          }
-        });
-      };
+      const reveals = document.querySelectorAll(".reveal");
+      if(!reveals.length) return;
 
       if(!("IntersectionObserver" in window)){
-        showByScroll();
-        window.addEventListener("scroll", showByScroll, { passive:true });
-        window.addEventListener("resize", showByScroll, { passive:true });
+        reveals.forEach(el => el.classList.add("is-visible"));
         return;
       }
 
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if(entry.isIntersecting){
-            requestAnimationFrame(() => entry.target.classList.add("is-visible"));
+            requestAnimationFrame(() => {
+              entry.target.classList.add("is-visible");
+            });
             io.unobserve(entry.target);
           }
         });
       }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
 
-      targets.forEach(el => io.observe(el));
-
-      // Por si cargas ya abajo
-      setTimeout(showByScroll, 80);
+      reveals.forEach(el => io.observe(el));
     });
 
     // ===== MODAL "PEDIR CITA" =====
