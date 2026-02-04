@@ -572,23 +572,32 @@
     .doctor-gabriel .thumb img{ object-position: center 15%; }
     .doctor-ana .thumb img{ object-position: center 15%; }
 
-    /* ===== REVEAL ON SCROLL (suave) ===== */
+    /* =========================
+       EFECTO "JOSE": reveal + is-visible (móvil incluido)
+       ========================= */
     .reveal{
-      opacity: 0;
-      transform: translateY(22px);
+      opacity:0;
+      transform: translateY(16px);
       transition: opacity .6s ease, transform .6s ease;
       will-change: opacity, transform;
     }
-    .reveal.reveal-visible{
-      opacity: 1;
+    .reveal.is-visible{
+      opacity:1;
       transform: translateY(0);
     }
+
+    /* Variantes opcionales (si quieres usarlas) */
+    .reveal[data-reveal="left"]{ transform: translateX(-18px); }
+    .reveal.is-visible[data-reveal="left"]{ transform: translateX(0); }
+    .reveal[data-reveal="right"]{ transform: translateX(18px); }
+    .reveal.is-visible[data-reveal="right"]{ transform: translateX(0); }
+    .reveal[data-reveal="zoom"]{ transform: scale(.98); }
+    .reveal.is-visible[data-reveal="zoom"]{ transform: scale(1); }
 
     @media (prefers-reduced-motion: reduce){
       .reveal{
         opacity: 1 !important;
         transform: none !important;
-        filter: none !important;
         transition: none !important;
       }
     }
@@ -992,7 +1001,6 @@
           <div class="body">
             <h3>Dra. Ana Belén Díaz Caler</h3>
             <p>Dirección médica. Enfoque cercano, criterio clínico y resultados naturales.</p>
-            <!-- Ahora abre modal -->
             <a class="more js-open-cita" href="#contacto">Pedir cita &gt;</a>
           </div>
         </article>
@@ -1004,7 +1012,6 @@
           <div class="body">
             <h3>Dr. Gabriel Fernández Sampedro</h3>
             <p>Atención personalizada y acompañamiento en cada etapa del tratamiento.</p>
-            <!-- Ahora abre modal -->
             <a class="more js-open-cita" href="#contacto">Pedir cita &gt;</a>
           </div>
         </article>
@@ -1023,7 +1030,7 @@
       <div class="carousel-wrap">
         <div class="carousel" aria-roledescription="carrusel">
           <div class="track" id="trackReviews">
-             <article class="review"><div class="stars">★★★★★</div><div class="name">Bego Jurado</div><p>Trato muy cercano. Me explicaron todo con calma y me sentí tranquila desde el primer minuto.</p></article>
+            <article class="review"><div class="stars">★★★★★</div><div class="name">Bego Jurado</div><p>Trato muy cercano. Me explicaron todo con calma y me sentí tranquila desde el primer minuto.</p></article>
             <article class="review"><div class="stars">★★★★★</div><div class="name">Daniela García</div><p>Resultado natural, justo lo que quería. Profesionales y muy atentos en el seguimiento.</p></article>
             <article class="review"><div class="stars">★★★★★</div><div class="name">Toni Casanueva Bermúdez</div><p>Instalaciones impecables y una atención muy humana. Repetiría sin dudarlo.</p></article>
             <article class="review"><div class="stars">★★★★★</div><div class="name">Alejandra M.P.</div><p>Me asesoraron con sinceridad, sin venderme de más. Eso da mucha confianza.</p></article>
@@ -1206,7 +1213,7 @@
     <div class="legalbar">© 2025 GEAN CLINIC. Todos los derechos reservados.</div>
   </footer>
 
-  <!-- ===== MODAL PEDIR CITA (FUERA DEL SCRIPT) ===== -->
+  <!-- ===== MODAL PEDIR CITA ===== -->
   <div id="citaModalOverlay" class="cita-modal-overlay" aria-hidden="true">
     <div class="cita-modal" role="dialog" aria-modal="true" aria-labelledby="citaModalTitle">
       <div class="cita-modal-top">
@@ -1344,69 +1351,69 @@
       btnPrecios.textContent = open ? "Ver precios" : "Ocultar precios";
     });
 
-    // ===== Reveal on scroll (ARREGLADO PARA MÓVIL) =====
-    (function(){
+    /* =========================
+       EFECTO "JOSE": same idea (IntersectionObserver + fallback)
+       - Aplica reveal a secciones + tarjetas
+       ========================= */
+    document.addEventListener("DOMContentLoaded", () => {
       const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduce) return;
 
-      const targets = Array.from(document.querySelectorAll(".hero, .section, footer"));
+      // Qué animamos (secciones + tarjetas)
+      const targets = Array.from(document.querySelectorAll(
+        ".hero, .band, .section, footer, .tcard, .review, .gcard, .info-box, .form"
+      ));
 
-      // 1) añade la clase base
+      // Si está vacío, fuera
+      if(!targets.length) return;
+
+      // Marcamos como reveal
       targets.forEach(el => el.classList.add("reveal"));
 
-      // 2) fuerza un layout para que el navegador "registre" el estado inicial (CLAVE en móvil)
-      targets.forEach(el => el.getBoundingClientRect());
+      // Stagger suave para grids (como se nota en la de Jose)
+      document.querySelectorAll(".cards").forEach(grid => {
+        Array.from(grid.children).forEach((el, i) => {
+          el.style.transitionDelay = (i * 70) + "ms";
+        });
+      });
 
-      const addVisible = (el) => {
-        // 3) siguiente frame => se ve la transición (CLAVE)
-        requestAnimationFrame(() => el.classList.add("reveal-visible"));
+      document.querySelectorAll("#trackReviews > *").forEach((el, i) => {
+        el.style.transitionDelay = (i * 60) + "ms";
+      });
+
+      // Fallback scroll (si IO falla por navegador/iframe)
+      const showByScroll = () => {
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        targets.forEach(el => {
+          if(el.classList.contains("is-visible")) return;
+          const r = el.getBoundingClientRect();
+          if (r.top < vh * 0.88) {
+            requestAnimationFrame(() => el.classList.add("is-visible"));
+          }
+        });
       };
 
-      const useScrollFallback = () => {
-        const revealNow = () => {
-          const vh = window.innerHeight || document.documentElement.clientHeight;
-          targets.forEach(el => {
-            if (el.classList.contains("reveal-visible")) return;
-            const r = el.getBoundingClientRect();
-            if (r.top < vh * 0.88) addVisible(el);
-          });
-        };
-
-        revealNow();
-
-        let ticking = false;
-        const onScroll = () => {
-          if (ticking) return;
-          ticking = true;
-          requestAnimationFrame(() => {
-            revealNow();
-            ticking = false;
-          });
-        };
-
-        window.addEventListener("scroll", onScroll, { passive:true });
-        window.addEventListener("resize", onScroll, { passive:true });
-      };
-
-      // En móvil: mantenemos fallback (OK), pero ya con addVisible() (arregla el “no se nota”)
-      const isMobile = window.matchMedia && window.matchMedia("(max-width: 980px)").matches;
-
-      if (!("IntersectionObserver" in window) || isMobile){
-        useScrollFallback();
+      if(!("IntersectionObserver" in window)){
+        showByScroll();
+        window.addEventListener("scroll", showByScroll, { passive:true });
+        window.addEventListener("resize", showByScroll, { passive:true });
         return;
       }
 
       const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting){
-            addVisible(e.target);
-            io.unobserve(e.target);
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            requestAnimationFrame(() => entry.target.classList.add("is-visible"));
+            io.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.12, rootMargin: "0px 0px -15% 0px" });
+      }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
 
       targets.forEach(el => io.observe(el));
-    })();
+
+      // Por si cargas ya abajo
+      setTimeout(showByScroll, 80);
+    });
 
     // ===== MODAL "PEDIR CITA" =====
     const CITA_PHONE = "663608898";
@@ -1431,10 +1438,9 @@
       overlay.setAttribute("aria-hidden","true");
     }
 
-    // Abrir modal desde cualquier botón con clase js-open-cita
     document.querySelectorAll(".js-open-cita").forEach(el => {
       el.addEventListener("click", (e) => {
-        e.preventDefault();   // evita bajar a #contacto o #reserva
+        e.preventDefault();
         openCitaModal();
       });
     });
